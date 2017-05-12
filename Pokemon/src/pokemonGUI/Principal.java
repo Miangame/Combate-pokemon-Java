@@ -200,7 +200,7 @@ public class Principal extends JFrame {
 		botonAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Desktop.getDesktop().browse(new URI("http://proyectopokemon.16mb.com"));
+					Desktop.getDesktop().browse(new URI("http://es.pokemon.wikia.com/wiki/WikiDex"));
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame, "No se ha podido abrir la ayuda", "Mensaje de error",
