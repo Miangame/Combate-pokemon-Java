@@ -35,7 +35,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
- * Probando gitkraken
  * Login del juego.
  * 
  * @author Miguel Ã�ngel GavilÃ¡n Merino
