@@ -171,6 +171,15 @@ public class EnvoltorioPokemons implements Serializable, Iterable<Pokemon> {
 	}
 
 	/**
+	 * Dice si la lista está o no vacía
+	 * 
+	 * @return true si la lista está vacía o false si no lo está
+	 */
+	public boolean isEmpty() {
+		return lista.isEmpty();
+	}
+
+	/**
 	 * Devuelve los pokemons de un tipo determinado
 	 * 
 	 * @param tipo

@@ -130,7 +130,6 @@ public class EleccionPokemon extends JDialog {
 		labelFondo.setIcon(new ImageIcon(EleccionPokemon.class.getResource("/resources/img/fondoEleccion.png")));
 		labelFondo.setBounds(0, 0, 509, 486);
 		contentPane.add(labelFondo);
-
 	}
 
 	/**

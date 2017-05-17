@@ -125,7 +125,8 @@ public class GestionPokemon extends JDialog {
 		mntmGenerarPokemons.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (new File("pokemons.obj").exists()) {
-					JOptionPane.showMessageDialog(contentPanel, "Ya existen pokemons cargados", "ERROR", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "Ya existen pokemons cargados", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					generarPokemons();
 					JOptionPane.showMessageDialog(contentPanel, "Pokemons generados correctamente");
@@ -147,8 +148,13 @@ public class GestionPokemon extends JDialog {
 				JButton okButton = new JButton("Jugar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						EleccionPokemon eleccion = new EleccionPokemon();
-						eleccion.setVisible(true);
+						if (Principal.listaPokemon.isEmpty()) {
+							JOptionPane.showMessageDialog(contentPanel, "¡No hay pokemons precargados!", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							EleccionPokemon eleccion = new EleccionPokemon();
+							eleccion.setVisible(true);
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
