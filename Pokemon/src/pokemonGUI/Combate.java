@@ -308,7 +308,7 @@ public class Combate extends JDialog {
 				pokemonAliado = jugador1.getCinturon().get(comboBox.getSelectedIndex());
 
 			} catch (PokemonNoExisteException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 
 			lblNombreAliado.setText(pokemonAliado.getNombre());
@@ -387,7 +387,7 @@ public class Combate extends JDialog {
 			progressBarEnemigoEnergia.setMinimum(0);
 			progressBarEnemigoEnergia.setValue(pokemonEnemigo.getEnergia());
 		} catch (PokemonNoExisteException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -400,7 +400,7 @@ public class Combate extends JDialog {
 			pokemonAliado = jugador1.getCinturon().get(contadorAliado);
 
 		} catch (PokemonNoExisteException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 
 		lblNombreAliado.setText(pokemonAliado.getNombre());

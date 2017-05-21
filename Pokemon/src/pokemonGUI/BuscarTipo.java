@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import funcionalidad.EnvoltorioPokemons;
 import funcionalidad.excepciones.PokemonNoExisteException;
 import funcionalidad.excepciones.PokemonYaExisteException;
@@ -149,8 +151,7 @@ public class BuscarTipo extends VentanaPadre {
 			try {
 				listaPokemonsTipo.annadir(pokemon);
 			} catch (PokemonYaExisteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 
 		}
