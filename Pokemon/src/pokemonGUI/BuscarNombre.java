@@ -27,6 +27,7 @@ public class BuscarNombre extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public BuscarNombre() {
+		setTitle("Buscar por nombre");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Pokemon pokemon;

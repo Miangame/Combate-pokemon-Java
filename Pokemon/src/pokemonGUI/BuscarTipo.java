@@ -30,7 +30,7 @@ public class BuscarTipo extends VentanaPadre {
 	 */
 	public BuscarTipo(ArrayList<Pokemon> listaPokemon) {
 		super();
-		setTitle("Mostrar por color");
+		setTitle("Mostrar por tipo");
 		cancelButton.setText("Volver");
 		this.listaPokemon = crearListaPokemons(listaPokemon);
 

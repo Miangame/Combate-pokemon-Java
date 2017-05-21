@@ -88,7 +88,6 @@ public class EnvoltorioPokemons implements Serializable, Iterable<Pokemon> {
 		} else {
 			throw new PokemonNoExisteException("El pokemon no existe");
 		}
-
 	}
 
 	public ArrayList<Pokemon> getLista() {

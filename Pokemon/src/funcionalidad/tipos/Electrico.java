@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
-import funcionalidad.interfaces.Atacable;
 import funcionalidad.interfaces.Defensable;
 
 /**
@@ -13,7 +12,7 @@ import funcionalidad.interfaces.Defensable;
  * @author Miguel Ángel Gavilán Merino
  *
  */
-public class Electrico extends Pokemon implements Serializable, Atacable, Defensable {
+public class Electrico extends Pokemon implements Serializable, Defensable {
 	/**
 	 * 
 	 */
@@ -77,20 +76,34 @@ public class Electrico extends Pokemon implements Serializable, Atacable, Defens
 	/**
 	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
 	 */
-	@SuppressWarnings("incomplete-switch")
 	@Override
 	public int getAtaque(Ataque ataque) {
 		int danioAtaque = 0;
 		switch (ataque) {
 		case BOLA_VOLTIO:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 7;
+			break;
 		case CHISPA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 5;
+			break;
 		case CHISPAZO:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 6;
+			break;
 		case ELECTROCANION:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 11;
+			break;
 		case IMPACTRUENO:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 10;
+			break;
 		case ONDA_VOLTIO:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 8;
+			break;
 		case RAYO:
-		case TRUENO:
-			danioAtaque = danioBase + General.generarAleatorio(30, 90);
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 12;
+			break;
+		default:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 9;
+			break;
 		}
 		return danioAtaque;
 	}

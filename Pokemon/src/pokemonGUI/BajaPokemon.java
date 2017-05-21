@@ -28,6 +28,7 @@ public class BajaPokemon extends VentanaPadre {
 	@SuppressWarnings("unchecked")
 
 	public BajaPokemon() {
+		setTitle("Baja de pokemons");
 		lblIcono.setLocation(244, 59);
 		lblTipo.setBounds(45, 31, 283, 15);
 		lblTipo.setText("Escoja el pokemon que quiere eliminar");

@@ -31,6 +31,10 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 		setNombre(nombre);
 		setVida(vida);
 	}
+	
+	public Pokemon(String nombre){
+		setNombre(nombre);
+	}
 
 	public String getNombre() {
 		return nombre;

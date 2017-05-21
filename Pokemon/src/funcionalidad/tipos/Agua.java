@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
-import funcionalidad.interfaces.Atacable;
 import funcionalidad.interfaces.Defensable;
 
 /**
@@ -13,7 +12,7 @@ import funcionalidad.interfaces.Defensable;
  * @author Miguel Ángel Gavilán Merino
  *
  */
-public class Agua extends Pokemon implements Serializable, Atacable, Defensable {
+public class Agua extends Pokemon implements Serializable, Defensable {
 	/**
 	 * 
 	 */
@@ -77,20 +76,34 @@ public class Agua extends Pokemon implements Serializable, Atacable, Defensable 
 	/**
 	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
 	 */
-	@SuppressWarnings("incomplete-switch")
 	@Override
 	public int getAtaque(Ataque ataque) {
 		int danioAtaque = 0;
 		switch (ataque) {
 		case PISTOLA_AGUA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 7;
+			break;
 		case HIDROBOMBA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 13;
+			break;
 		case RAYO_BURBUJA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 5;
+			break;
 		case SURF:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 11;
+			break;
 		case HIDRO_CANON:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 12;
+			break;
 		case ACUA_COLA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 8;
+			break;
 		case CASCADA:
-		case HIDROPULSO:
-			danioAtaque = danioBase + General.generarAleatorio(30, 90);
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 10;
+			break;
+		default:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 9;
+			break;
 
 		}
 		return danioAtaque;

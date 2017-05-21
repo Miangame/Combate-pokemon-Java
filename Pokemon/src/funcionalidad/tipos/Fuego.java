@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
-import funcionalidad.interfaces.Atacable;
 import funcionalidad.interfaces.Defensable;
 
 /**
@@ -13,7 +12,7 @@ import funcionalidad.interfaces.Defensable;
  * @author Miguel Ángel Gavilán Merino
  *
  */
-public class Fuego extends Pokemon implements Serializable, Atacable, Defensable {
+public class Fuego extends Pokemon implements Serializable, Defensable {
 	/**
 	 * 
 	 */
@@ -78,20 +77,34 @@ public class Fuego extends Pokemon implements Serializable, Atacable, Defensable
 	/**
 	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
 	 */
-	@SuppressWarnings("incomplete-switch")
 	@Override
 	public int getAtaque(Ataque ataque) {
 		int danioAtaque = 0;
 		switch (ataque) {
 		case ASCUAS:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 6;
+			break;
 		case GIRO_FUEGO:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 12;
+			break;
 		case LANZALLAMAS:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 9;
+			break;
 		case LLAMARADA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 10;
+			break;
 		case ONDA_IGNEA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 11;
+			break;
 		case RUEDA_FUEGO:
-		case HUMAREDA:
-		case PIROTECNIA:
 			danioAtaque = danioBase + General.generarAleatorio(30, 90);
+			break;
+		case HUMAREDA:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 8;
+			break;
+		default:
+			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 7;
+			break;
 		}
 		return danioAtaque;
 	}

@@ -184,7 +184,7 @@ public class Combate extends JDialog {
 				cambiarPokemon();
 			}
 		});
-		btnCambiar.setBounds(570, 109, 117, 25);
+		btnCambiar.setBounds(444, 109, 117, 25);
 		panelBotones.add(btnCambiar);
 
 		comboBox = new JComboBox();
@@ -198,14 +198,14 @@ public class Combate extends JDialog {
 		textArea.setEditable(false);
 		textArea.setBounds(0, 0, 699, 97);
 		panelBotones.add(textArea);
-		
+
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarBotonesMenu();
 			}
 		});
-		btnVolver.setBounds(441, 109, 117, 25);
+		btnVolver.setBounds(570, 109, 117, 25);
 		panelBotones.add(btnVolver);
 
 		progressBarEnemigo = new JProgressBar();
@@ -258,8 +258,13 @@ public class Combate extends JDialog {
 
 		boolean bandera = true;
 
-		if (pokemonAliado.getVida() <= 0) {
-			JOptionPane.showMessageDialog(null, "Ese pokemon se encuentra debilitado!!");
+		if (comboBox.getSelectedItem() == pokemonAliado) {
+			JOptionPane.showMessageDialog(contentPane, "Ese pokemon ya está combatiendo!!");
+			bandera = false;
+		}
+
+		if (((Pokemon) comboBox.getSelectedItem()).getVida() <= 0) {
+			JOptionPane.showMessageDialog(contentPane, "Ese pokemon se encuentra debilitado!!");
 			bandera = false;
 		}
 
@@ -280,8 +285,9 @@ public class Combate extends JDialog {
 			progressBarAliado.setMaximum(pokemonAliado.getVida());
 			progressBarAliado.setMinimum(0);
 			progressBarAliado.setValue(pokemonAliado.getVida());
-			
+
 			mostrarBotonesMenu();
+			atacarEnemigo();
 		}
 
 	}
