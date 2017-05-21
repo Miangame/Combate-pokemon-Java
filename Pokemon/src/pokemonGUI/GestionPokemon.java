@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import funcionalidad.General;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.excepciones.PokemonYaExisteException;
 import funcionalidad.tipos.Agua;
 import funcionalidad.tipos.Electrico;
@@ -217,9 +218,8 @@ public class GestionPokemon extends JDialog {
 			Principal.listaPokemon.annadir(new Volador("Crobat", General.generarAleatorio(300, 500)));
 
 			Principal.listaPokemon.escribir();
-		} catch (PokemonYaExisteException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (PokemonYaExisteException | IOException | EnergiaNoValidaException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

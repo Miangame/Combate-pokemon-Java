@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.interfaces.Defensable;
 
 /**
@@ -38,7 +39,7 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 	 */
 	private Ataque[] ataquesAgua = new Ataque[4];
 
-	public Agua(String nombre, int vida) {
+	public Agua(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
 		this.danioBase = 15;
 		this.defensa = 10;
@@ -75,9 +76,10 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 
 	/**
 	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
+	 * @throws EnergiaNoValidaException 
 	 */
 	@Override
-	public int getAtaque(Ataque ataque) {
+	public int getAtaque(Ataque ataque) throws EnergiaNoValidaException {
 		int danioAtaque = 0;
 		switch (ataque) {
 		case PISTOLA_AGUA:
@@ -106,6 +108,7 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 			break;
 
 		}
+		setEnergia(getEnergia() - ataque.getEnergia());
 		return danioAtaque;
 	}
 

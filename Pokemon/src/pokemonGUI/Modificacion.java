@@ -3,6 +3,7 @@ package pokemonGUI;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.excepciones.PokemonNoExisteException;
 import funcionalidad.excepciones.PokemonYaExisteException;
 import funcionalidad.tipos.*;
@@ -78,9 +79,8 @@ public class Modificacion extends VentanaPadre {
 
 			Principal.listaPokemon.eliminar(pokemon);
 			Principal.listaPokemon.escribir();
-		} catch (PokemonYaExisteException | PokemonNoExisteException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (PokemonYaExisteException | PokemonNoExisteException | IOException | EnergiaNoValidaException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 
 		JOptionPane.showMessageDialog(null, "Modificado correctamente");

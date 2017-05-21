@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
 import funcionalidad.General;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.excepciones.PokemonYaExisteException;
 import funcionalidad.tipos.Agua;
 import funcionalidad.tipos.Electrico;
@@ -45,7 +46,11 @@ public class AltaPokemon extends VentanaPadre {
 		comboBox.setModel(new DefaultComboBoxModel<>(tipos));
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				altaPokemon();
+				try {
+					altaPokemon();
+				} catch (EnergiaNoValidaException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
 				dispose();
 			}
 		});
@@ -54,8 +59,9 @@ public class AltaPokemon extends VentanaPadre {
 
 	/**
 	 * Añade un pokemon al archivo "pokemons.obj"
+	 * @throws EnergiaNoValidaException 
 	 */
-	private static void altaPokemon() {
+	private static void altaPokemon() throws EnergiaNoValidaException {
 		try {
 			Principal.listaPokemon.annadir(pedirPokemon());
 			Principal.listaPokemon.escribir();
@@ -70,8 +76,9 @@ public class AltaPokemon extends VentanaPadre {
 	 * Pide un pokemon para posteriormente añadirlo
 	 * 
 	 * @return pokemon pedido
+	 * @throws EnergiaNoValidaException 
 	 */
-	private static Pokemon pedirPokemon() {
+	private static Pokemon pedirPokemon() throws EnergiaNoValidaException {
 
 		switch (comboBox.getSelectedItem().toString()) {
 		case "Agua":

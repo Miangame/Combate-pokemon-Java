@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.interfaces.Defensable;
 
 /**
@@ -38,7 +39,7 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 	 */
 	private Ataque[] ataquesVolador = new Ataque[4];
 
-	public Volador(String nombre, int vida) {
+	public Volador(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
 		this.danioBase = 16;
 		this.defensa = 9;
@@ -75,9 +76,11 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 
 	/**
 	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
+	 * 
+	 * @throws EnergiaNoValidaException
 	 */
 	@Override
-	public int getAtaque(Ataque ataque) {
+	public int getAtaque(Ataque ataque) throws EnergiaNoValidaException {
 		int danioAtaque = 0;
 		switch (ataque) {
 		case ACROBATA:
@@ -105,6 +108,7 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 4;
 			break;
 		}
+		setEnergia(getEnergia() - ataque.getEnergia());
 		return danioAtaque;
 	}
 

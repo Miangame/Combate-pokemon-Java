@@ -3,6 +3,7 @@ package funcionalidad.tipos;
 import java.io.Serializable;
 
 import funcionalidad.enumeraciones.Ataque;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 
 /**
  * Clase padre de todos los pokemon
@@ -26,21 +27,34 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 	 */
 	private int vida;
 
-	public Pokemon(String nombre, int vida) {
+	/**
+	 * Energía para realizar los ataques
+	 */
+	private int energia;
+
+	public Pokemon(String nombre, int vida) throws EnergiaNoValidaException {
 		super();
 		setNombre(nombre);
 		setVida(vida);
+		setEnergia(100);
 	}
-	
-	public Pokemon(String nombre){
-		setNombre(nombre);
+
+	public int getEnergia() {
+		return energia;
+	}
+
+	public void setEnergia(int energia) throws EnergiaNoValidaException {
+		if (energia < 0)
+			throw new EnergiaNoValidaException("El pokemon no tiene suficiente energía");
+
+		this.energia = energia;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
+	void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -48,7 +62,7 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 		return vida;
 	}
 
-	protected void setVida(int vidaActual) {
+	void setVida(int vidaActual) {
 		this.vida = vidaActual;
 	}
 
@@ -83,6 +97,6 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 
 	public abstract Ataque getAtaques(int indice);
 
-	public abstract int getAtaque(Ataque ataque);
+	public abstract int getAtaque(Ataque ataque) throws EnergiaNoValidaException;
 
 }

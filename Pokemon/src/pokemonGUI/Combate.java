@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import funcionalidad.General;
 import funcionalidad.Usuario;
 import funcionalidad.enumeraciones.Ataque;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.excepciones.PokemonNoExisteException;
 import funcionalidad.excepciones.PokemonYaExisteException;
 import funcionalidad.excepciones.UsuarioNoValidoException;
@@ -70,6 +71,8 @@ public class Combate extends JDialog {
 	private JComboBox comboBox;
 	private JButton btnCambiar;
 	private JButton btnVolver;
+	private JProgressBar progressBarEnemigoEnergia;
+	private JProgressBar progressBarAliadoEnergia;
 
 	/**
 	 * Create the frame.
@@ -220,6 +223,38 @@ public class Combate extends JDialog {
 		progressBarAliado.setBounds(491, 204, 171, 14);
 		contentPane.add(progressBarAliado);
 
+		progressBarEnemigoEnergia = new JProgressBar();
+		progressBarEnemigoEnergia.setStringPainted(true);
+		progressBarEnemigoEnergia.setForeground(Color.BLUE);
+		progressBarEnemigoEnergia.setBounds(44, 75, 171, 14);
+		contentPane.add(progressBarEnemigoEnergia);
+
+		progressBarAliadoEnergia = new JProgressBar();
+		progressBarAliadoEnergia.setStringPainted(true);
+		progressBarAliadoEnergia.setForeground(Color.BLUE);
+		progressBarAliadoEnergia.setBounds(491, 230, 171, 14);
+		contentPane.add(progressBarAliadoEnergia);
+
+		JLabel lblPs = new JLabel("PS");
+		lblPs.setForeground(Color.WHITE);
+		lblPs.setBounds(12, 48, 28, 15);
+		contentPane.add(lblPs);
+
+		JLabel lblEnerga = new JLabel("PP");
+		lblEnerga.setForeground(Color.WHITE);
+		lblEnerga.setBounds(12, 74, 28, 15);
+		contentPane.add(lblEnerga);
+
+		JLabel lblPs_1 = new JLabel("PS");
+		lblPs_1.setForeground(Color.WHITE);
+		lblPs_1.setBounds(445, 203, 28, 15);
+		contentPane.add(lblPs_1);
+
+		JLabel lblPp = new JLabel("PP");
+		lblPp.setForeground(Color.WHITE);
+		lblPp.setBounds(445, 229, 28, 15);
+		contentPane.add(lblPp);
+
 		lblNombreEnemigo = new JLabel();
 		lblNombreEnemigo.setForeground(Color.WHITE);
 		lblNombreEnemigo.setBounds(44, 22, 135, 15);
@@ -286,6 +321,10 @@ public class Combate extends JDialog {
 			progressBarAliado.setMinimum(0);
 			progressBarAliado.setValue(pokemonAliado.getVida());
 
+			progressBarAliadoEnergia.setMaximum(pokemonAliado.getEnergia());
+			progressBarAliadoEnergia.setMinimum(0);
+			progressBarAliadoEnergia.setValue(pokemonAliado.getEnergia());
+
 			mostrarBotonesMenu();
 			atacarEnemigo();
 		}
@@ -342,6 +381,11 @@ public class Combate extends JDialog {
 			progressBarEnemigo.setMaximum(pokemonEnemigo.getVida());
 			progressBarEnemigo.setMinimum(0);
 			progressBarEnemigo.setValue(pokemonEnemigo.getVida());
+
+			progressBarEnemigoEnergia.setMaximum(pokemonEnemigo.getEnergia());
+			;
+			progressBarEnemigoEnergia.setMinimum(0);
+			progressBarEnemigoEnergia.setValue(pokemonEnemigo.getEnergia());
 		} catch (PokemonNoExisteException e) {
 			e.printStackTrace();
 		}
@@ -368,6 +412,10 @@ public class Combate extends JDialog {
 		progressBarAliado.setMaximum(pokemonAliado.getVida());
 		progressBarAliado.setMinimum(0);
 		progressBarAliado.setValue(pokemonAliado.getVida());
+
+		progressBarAliadoEnergia.setMaximum(pokemonAliado.getEnergia());
+		progressBarAliadoEnergia.setMinimum(0);
+		progressBarAliadoEnergia.setValue(pokemonAliado.getEnergia());
 
 	}
 
@@ -458,8 +506,13 @@ public class Combate extends JDialog {
 		String cadena = "\n\t" + pokemonAliado.getNombre() + " USÓ " + ataque.name() + "\n";
 
 		mostrarTexto();
-		cadena += "\n\t" + defensable.getDefensa(pokemonAliado, pokemonAliado.getAtaque(ataque));
+		try {
+			cadena += "\n\t" + defensable.getDefensa(pokemonAliado, pokemonAliado.getAtaque(ataque));
+		} catch (EnergiaNoValidaException e) {
+			cadena += e.getMessage();
+		}
 		progressBarEnemigo.setValue(pokemonEnemigo.getVida());
+		progressBarAliadoEnergia.setValue(pokemonAliado.getEnergia());
 		textArea.setText(cadena);
 
 		if (pokemonEnemigo.getVida() <= 0) {
@@ -467,6 +520,12 @@ public class Combate extends JDialog {
 			if (contadorEnemigo != 6) {
 				cargarPokemonEnemigo();
 			}
+
+		}
+		try {
+			pokemonEnemigo.setEnergia(pokemonEnemigo.getEnergia() + 10);
+			progressBarEnemigoEnergia.setValue(pokemonEnemigo.getEnergia());
+		} catch (EnergiaNoValidaException e) {
 
 		}
 		comprobarGanador();
@@ -483,8 +542,13 @@ public class Combate extends JDialog {
 		String cadena = "\n\t" + pokemonEnemigo.getNombre() + " USÓ " + ataque.name() + "\n";
 
 		mostrarTexto();
-		cadena += "\n\t" + defensable.getDefensa(pokemonEnemigo, pokemonEnemigo.getAtaque(ataque));
+		try {
+			cadena += "\n\t" + defensable.getDefensa(pokemonEnemigo, pokemonEnemigo.getAtaque(ataque));
+		} catch (EnergiaNoValidaException e) {
+			cadena += e.getMessage();
+		}
 		progressBarAliado.setValue(pokemonAliado.getVida());
+		progressBarEnemigoEnergia.setValue(pokemonEnemigo.getEnergia());
 		textArea.setText(cadena);
 
 		if (pokemonAliado.getVida() <= 0) {
@@ -493,6 +557,12 @@ public class Combate extends JDialog {
 			if (contadorAliado != 6) {
 				cargarPokemonAliado();
 			}
+
+		}
+		try {
+			pokemonAliado.setEnergia(pokemonAliado.getEnergia() + 10);
+			progressBarAliadoEnergia.setValue(pokemonAliado.getEnergia());
+		} catch (EnergiaNoValidaException e) {
 
 		}
 		comprobarGanador();

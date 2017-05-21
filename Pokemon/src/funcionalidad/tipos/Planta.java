@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
+import funcionalidad.excepciones.EnergiaNoValidaException;
 import funcionalidad.interfaces.Defensable;
 
 /**
@@ -38,7 +39,7 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 	 */
 	private Ataque[] ataquesPlanta = new Ataque[4];
 
-	public Planta(String nombre, int vida) {
+	public Planta(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
 		this.danioBase = 13;
 		this.defensa = 9;
@@ -75,9 +76,11 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 
 	/**
 	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
+	 * 
+	 * @throws EnergiaNoValidaException
 	 */
 	@Override
-	public int getAtaque(Ataque ataque) {
+	public int getAtaque(Ataque ataque) throws EnergiaNoValidaException {
 		int danioAtaque = 0;
 		switch (ataque) {
 		case HOJA_AFILADA:
@@ -105,6 +108,7 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 			danioAtaque = danioBase + General.generarAleatorio(30, 90) + 7;
 			break;
 		}
+		setEnergia(getEnergia() - ataque.getEnergia());
 		return danioAtaque;
 	}
 
