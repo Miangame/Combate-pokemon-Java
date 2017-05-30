@@ -70,6 +70,7 @@ Precisión: Precisión de cada ataque del pokemon</br>
 Ataques[4]: Array de ataques de tipo volador. Cada uno tendrá un daño base + número aleatorio entre 30 y 90</br></br>
 
 <li><b>Enumeración Ataques</b></li>
+
     /**
      * Ataques de tipo agua
      */
