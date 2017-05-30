@@ -48,6 +48,7 @@ public class GestionPokemon extends JDialog {
 	 * Create the dialog.
 	 */
 	public GestionPokemon() {
+		setTitle("Gestión de pokemons");
 		setResizable(false);
 		setBounds(100, 100, 654, 417);
 		getContentPane().setLayout(new BorderLayout());

@@ -25,6 +25,7 @@ public class ModificarPokemon extends VentanaPadre {
 	 */
 	@SuppressWarnings("unchecked")
 	public ModificarPokemon() {
+		setTitle("Modificación de pokemons");
 		lblIcono.setLocation(248, 52);
 		lblTipo.setBounds(45, 32, 300, 15);
 		lblTipo.setText("Escoja el pokemon que quiere modificar: ");

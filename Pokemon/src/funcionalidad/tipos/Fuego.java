@@ -76,7 +76,7 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 	}
 
 	/**
-	 * Implementado de la interfaz Atacable. Obtiene un valor para cada ataque
+	 * Obtiene un valor para cada ataque
 	 * 
 	 * @throws EnergiaNoValidaException
 	 */
@@ -114,7 +114,7 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 	}
 
 	/**
-	 * Implementado de la interfaz Atacable. Obtiene una defensa segun el tipo
+	 * Implementado de la interfaz Defensable. Obtiene una defensa según el tipo
 	 * del atacante
 	 * 
 	 * @throws VidaNoValidaException

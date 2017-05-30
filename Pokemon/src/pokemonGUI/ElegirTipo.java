@@ -27,6 +27,7 @@ public class ElegirTipo extends VentanaPadre {
 	 */
 	@SuppressWarnings("unchecked")
 	public ElegirTipo() {
+		setTitle("Buscar por tipo");
 		textField.setVisible(false);
 		lblNombre.setVisible(false);
 		lblIcono.setVisible(false);

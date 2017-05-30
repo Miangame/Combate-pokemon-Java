@@ -51,9 +51,7 @@ public class EnvoltorioPokemons implements Serializable, Iterable<Pokemon> {
 	 */
 	public Pokemon get(int index) throws PokemonNoExisteException {
 		try {
-
 			return lista.get(index);
-
 		} catch (IndexOutOfBoundsException e) {
 			throw new PokemonNoExisteException("El elemento no existe");
 		}
@@ -163,7 +161,6 @@ public class EnvoltorioPokemons implements Serializable, Iterable<Pokemon> {
 	 */
 	@SuppressWarnings("unchecked")
 	public void leer() throws FileNotFoundException, IOException, ClassNotFoundException {
-
 		try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
 			lista = (ArrayList<Pokemon>) in.readObject();
 		}
@@ -187,7 +184,6 @@ public class EnvoltorioPokemons implements Serializable, Iterable<Pokemon> {
 	 * @throws PokemonNoExisteException
 	 */
 	public ArrayList<Pokemon> getPokemonsTipo(Object tipo) throws PokemonNoExisteException {
-
 		ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
 		for (Pokemon pokemon : lista) {
 			if (pokemon.getClass().getSimpleName().equals(tipo)) {
