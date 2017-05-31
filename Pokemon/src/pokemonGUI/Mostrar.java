@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Muestra todos los pokemons
@@ -27,9 +29,36 @@ public class Mostrar extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public Mostrar() {
+		siguiente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					mostrarAnterior();
+					anterior.grabFocus();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					mostrarSiguiente();
+				}
+			}
+		});
+
+		anterior.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					mostrarAnterior();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					mostrarSiguiente();
+					siguiente.grabFocus();
+				}
+			}
+		});
 
 		setResizable(false);
 		setTitle("Listado de pokemons");
+
+		comboBox_2.setVisible(false);
 
 		if (Principal.listaPokemon.size() == 0) {
 			JOptionPane.showMessageDialog(null, "No existen pokemons", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -40,6 +69,7 @@ public class Mostrar extends VentanaPadre {
 					mostrarSiguiente();
 				}
 			});
+
 			anterior.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					mostrarAnterior();
@@ -120,20 +150,24 @@ public class Mostrar extends VentanaPadre {
 	private void comprobarBotones() {
 
 		try {
-			if (Principal.listaPokemon.get(indice + 1) != null)
+			if (Principal.listaPokemon.get(indice + 1) != null) {
 				siguiente.setEnabled(true);
+
+			}
 		} catch (PokemonNoExisteException e) {
 			siguiente.setEnabled(false);
+
 		}
 
 		try {
-			if (Principal.listaPokemon.get(indice - 1) != null)
+			if (Principal.listaPokemon.get(indice - 1) != null) {
 				anterior.setEnabled(true);
-
+			}
 		} catch (PokemonNoExisteException e) {
-			// TODO Auto-generated catch block
 			anterior.setEnabled(false);
+
 		}
 
 	}
+
 }

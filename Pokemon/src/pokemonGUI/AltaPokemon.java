@@ -42,6 +42,7 @@ public class AltaPokemon extends VentanaPadre {
 		siguiente.setVisible(false);
 		anterior.setVisible(false);
 		lblIcono.setVisible(false);
+		comboBox_2.setVisible(false);
 
 		comboBox.setModel(new DefaultComboBoxModel<>(tipos));
 		okButton.addActionListener(new ActionListener() {

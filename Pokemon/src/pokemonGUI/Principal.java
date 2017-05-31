@@ -100,6 +100,7 @@ public class Principal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 25, 1163, 682);
 		contentPane = new JPanel();
+
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -138,6 +139,9 @@ public class Principal extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					entrar();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_F1) {
+					abrirAyuda();
 				}
 			}
 		});
@@ -199,13 +203,7 @@ public class Principal extends JFrame {
 		botonAyuda.setBorderPainted(false);
 		botonAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					Desktop.getDesktop().browse(new URI("http://es.pokemon.wikia.com/wiki/WikiDex"));
-
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(frame, "No se ha podido abrir la ayuda", "Mensaje de error",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
+				abrirAyuda();
 			}
 		});
 		botonAyuda.setBounds(287, 587, 139, 53);
@@ -226,6 +224,16 @@ public class Principal extends JFrame {
 		label.setBounds(0, 0, 1161, 652);
 		contentPane.add(label);
 
+	}
+
+	private void abrirAyuda() {
+		try {
+			Desktop.getDesktop().browse(new URI("http://es.pokemon.wikia.com/wiki/WikiDex"));
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(frame, "No se ha podido abrir la ayuda", "Mensaje de error",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 	/**

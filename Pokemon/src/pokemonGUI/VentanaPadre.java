@@ -26,11 +26,13 @@ public class VentanaPadre extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
+	protected final JPanel contentPanel = new JPanel();
 	protected static JTextField textField;
 
 	@SuppressWarnings("rawtypes")
 	protected static JComboBox comboBox;
+	@SuppressWarnings("rawtypes")
+	protected static JComboBox comboBox_2;
 	protected JButton okButton;
 	protected JLabel lblNombre;
 	protected JLabel lblTipo;
@@ -71,6 +73,11 @@ public class VentanaPadre extends JDialog {
 		});
 		comboBox.setBounds(45, 59, 141, 24);
 		contentPanel.add(comboBox);
+		{
+			comboBox_2 = new JComboBox();
+			comboBox_2.setBounds(198, 59, 141, 24);
+			contentPanel.add(comboBox_2);
+		}
 
 		lblNombre = new JLabel("Introduzca el nombre:");
 		lblNombre.setBounds(45, 113, 168, 15);

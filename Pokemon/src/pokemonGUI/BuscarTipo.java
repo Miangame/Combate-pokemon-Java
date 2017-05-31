@@ -41,7 +41,8 @@ public class BuscarTipo extends VentanaPadre {
 
 		comboBox.setEnabled(false);
 		textField.setEnabled(false);
-
+		comboBox_2.setVisible(false);
+		
 		anterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarAnterior();

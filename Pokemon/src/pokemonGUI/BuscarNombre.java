@@ -46,6 +46,7 @@ public class BuscarNombre extends VentanaPadre {
 		okButton.setText("Buscar");
 		siguiente.setVisible(false);
 		anterior.setVisible(false);
+		comboBox_2.setVisible(false);
 	}
 
 	/**

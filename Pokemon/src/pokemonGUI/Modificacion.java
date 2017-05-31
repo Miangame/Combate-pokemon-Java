@@ -33,6 +33,7 @@ public class Modificacion extends VentanaPadre {
 	public Modificacion(Pokemon pokemon) {
 		siguiente.setVisible(false);
 		anterior.setVisible(false);
+		comboBox_2.setVisible(false);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modificarPokemon(pokemon);
@@ -53,7 +54,6 @@ public class Modificacion extends VentanaPadre {
 	 * @param pokemon
 	 */
 	private void modificarPokemon(Pokemon pokemon) {
-
 		try {
 			switch (comboBox.getSelectedItem().toString()) {
 			case "Agua":
@@ -64,7 +64,7 @@ public class Modificacion extends VentanaPadre {
 				Principal.listaPokemon.annadir(new Fuego(textField.getText(), pokemon.getVida()));
 				break;
 
-			case "Electrico":
+			case "Eléctrico":
 				Principal.listaPokemon.annadir(new Electrico(textField.getText(), pokemon.getVida()));
 				break;
 

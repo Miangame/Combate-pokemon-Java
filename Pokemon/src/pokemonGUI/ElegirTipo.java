@@ -33,6 +33,7 @@ public class ElegirTipo extends VentanaPadre {
 		lblIcono.setVisible(false);
 		anterior.setVisible(false);
 		siguiente.setVisible(false);
+		comboBox_2.setVisible(false);
 		lblTipo.setText("Seleccione el tipo:");
 		String[] tipos = { "Agua", "Fuego", "Electrico", "Volador", "Planta" };
 
