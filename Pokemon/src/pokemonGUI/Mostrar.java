@@ -1,6 +1,5 @@
 package pokemonGUI;
 
-import funcionalidad.excepciones.PokemonNoExisteException;
 import funcionalidad.tipos.Pokemon;
 import java.awt.event.ActionListener;
 
@@ -10,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ListIterator;
 
 /**
  * Muestra todos los pokemons
@@ -23,12 +23,14 @@ public class Mostrar extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int indice = -1;
+	private ListIterator<Pokemon> iterador;
+	private Pokemon pokemonCopia;
 
 	/**
 	 * Create the dialog.
 	 */
 	public Mostrar() {
+		iterador = Principal.listaPokemon.getLista().listIterator();
 		siguiente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -87,17 +89,17 @@ public class Mostrar extends VentanaPadre {
 	}
 
 	void actualizar() {
-		if (Principal.listaPokemon.size() == 0) {
-			return;
+		if (Principal.listaPokemon.size() == 1) {
+			siguiente.setEnabled(false);
+			anterior.setEnabled(false);
+		} else {
+			siguiente.setEnabled(true);
+			anterior.setEnabled(false);
 		}
 
-		try {
-			indice = 0;
-			mostrarPokemon(Principal.listaPokemon.get(indice));
-			comprobarBotones();
-		} catch (PokemonNoExisteException e) {
+		pokemonCopia = iterador.next();
 
-		}
+		mostrarPokemon(pokemonCopia);
 
 	}
 
@@ -105,10 +107,15 @@ public class Mostrar extends VentanaPadre {
 	 * Muestra el siguiente
 	 */
 	private void mostrarSiguiente() {
-		try {
-			mostrarPokemon(Principal.listaPokemon.get(++indice));
+
+		if (iterador.hasNext()) {
+			pokemonCopia = iterador.next();
+			mostrarPokemon(pokemonCopia);
 			comprobarBotones();
-		} catch (PokemonNoExisteException e) {
+
+			if (!iterador.hasNext()) {
+				iterador.previous();
+			}
 
 		}
 
@@ -118,11 +125,15 @@ public class Mostrar extends VentanaPadre {
 	 * Muestra el anterior
 	 */
 	private void mostrarAnterior() {
-		try {
-			mostrarPokemon(Principal.listaPokemon.get(--indice));
-			comprobarBotones();
-		} catch (PokemonNoExisteException e) {
 
+		if (iterador.hasPrevious()) {
+			pokemonCopia = iterador.previous();
+			mostrarPokemon(pokemonCopia);
+			comprobarBotones();
+
+			if (!iterador.hasPrevious()) {
+				iterador.next();
+			}
 		}
 
 	}
@@ -149,23 +160,15 @@ public class Mostrar extends VentanaPadre {
 	 */
 	private void comprobarBotones() {
 
-		try {
-			if (Principal.listaPokemon.get(indice + 1) != null) {
-				siguiente.setEnabled(true);
-
-			}
-		} catch (PokemonNoExisteException e) {
+		if (!iterador.hasNext()) {
 			siguiente.setEnabled(false);
-
+		} else {
+			siguiente.setEnabled(true);
 		}
-
-		try {
-			if (Principal.listaPokemon.get(indice - 1) != null) {
-				anterior.setEnabled(true);
-			}
-		} catch (PokemonNoExisteException e) {
+		if (!iterador.hasPrevious()) {
 			anterior.setEnabled(false);
-
+		} else {
+			anterior.setEnabled(true);
 		}
 
 	}

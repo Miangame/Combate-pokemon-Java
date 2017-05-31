@@ -29,6 +29,9 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 /**
  * Gestiona las altas, bajas y modificaciones de los pokemons
@@ -61,9 +64,11 @@ public class GestionPokemon extends JDialog {
 		contentPanel.add(menuBar);
 
 		JMenu mnGestin = new JMenu("Gestión");
+		mnGestin.setMnemonic('g');
 		menuBar.add(mnGestin);
 
 		JMenuItem mntmAlta = new JMenuItem("Alta");
+		mntmAlta.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		mntmAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AltaPokemon alta = new AltaPokemon();
@@ -73,6 +78,7 @@ public class GestionPokemon extends JDialog {
 		mnGestin.add(mntmAlta);
 
 		JMenuItem mntmBaja = new JMenuItem("Baja");
+		mntmBaja.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK));
 		mntmBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BajaPokemon baja = new BajaPokemon();
@@ -82,6 +88,7 @@ public class GestionPokemon extends JDialog {
 		mnGestin.add(mntmBaja);
 
 		JMenuItem mntmModificacin = new JMenuItem("Modificación");
+		mntmModificacin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.CTRL_MASK));
 		mntmModificacin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ModificarPokemon modificar = new ModificarPokemon();
@@ -94,6 +101,7 @@ public class GestionPokemon extends JDialog {
 		mnGestin.add(separator);
 
 		JMenuItem mntmMostrarTodosLos = new JMenuItem("Mostrar todos los pokemons");
+		mntmMostrarTodosLos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		mntmMostrarTodosLos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Mostrar mostrar = new Mostrar();
@@ -101,11 +109,32 @@ public class GestionPokemon extends JDialog {
 			}
 		});
 		mnGestin.add(mntmMostrarTodosLos);
+				
+				JSeparator separator_1 = new JSeparator();
+				mnGestin.add(separator_1);
+		
+				JMenuItem mntmGenerarPokemons = new JMenuItem("Generar pokemons");
+				mnGestin.add(mntmGenerarPokemons);
+				mntmGenerarPokemons.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
+				mntmGenerarPokemons.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (new File("pokemons.obj").exists()) {
+							JOptionPane.showMessageDialog(contentPanel, "Ya existen pokemons cargados", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							generarPokemons();
+							JOptionPane.showMessageDialog(contentPanel, "Pokemons generados correctamente");
+						}
+					}
+
+				});
 
 		JMenu mnBuscarPor = new JMenu("Buscar por...");
+		mnBuscarPor.setMnemonic('b');
 		menuBar.add(mnBuscarPor);
 
 		JMenuItem mntmNombre = new JMenuItem("Nombre");
+		mntmNombre.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
 		mntmNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BuscarNombre buscarNombre = new BuscarNombre();
@@ -115,6 +144,7 @@ public class GestionPokemon extends JDialog {
 		mnBuscarPor.add(mntmNombre);
 
 		JMenuItem mntmTipo = new JMenuItem("Tipo");
+		mntmTipo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK));
 		mntmTipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ElegirTipo elegirTipo = new ElegirTipo();
@@ -122,21 +152,6 @@ public class GestionPokemon extends JDialog {
 			}
 		});
 		mnBuscarPor.add(mntmTipo);
-
-		JMenuItem mntmGenerarPokemons = new JMenuItem("Generar pokemons");
-		mntmGenerarPokemons.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (new File("pokemons.obj").exists()) {
-					JOptionPane.showMessageDialog(contentPanel, "Ya existen pokemons cargados", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					generarPokemons();
-					JOptionPane.showMessageDialog(contentPanel, "Pokemons generados correctamente");
-				}
-			}
-
-		});
-		menuBar.add(mntmGenerarPokemons);
 
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(GestionPokemon.class.getResource("/resources/img/fondoGestionPokemon.png")));

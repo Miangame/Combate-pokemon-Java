@@ -2,13 +2,15 @@ package pokemonGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import funcionalidad.EnvoltorioPokemons;
-import funcionalidad.excepciones.PokemonNoExisteException;
 import funcionalidad.excepciones.PokemonYaExisteException;
 import funcionalidad.tipos.Pokemon;
 
@@ -25,7 +27,8 @@ public class BuscarTipo extends VentanaPadre {
 	 */
 	private static final long serialVersionUID = 1L;
 	private EnvoltorioPokemons listaPokemon;
-	private int indice = -1;
+	private ListIterator<Pokemon> iterador;
+	private Pokemon pokemonCopia;
 
 	/**
 	 * Create the dialog.
@@ -36,13 +39,41 @@ public class BuscarTipo extends VentanaPadre {
 		cancelButton.setText("Volver");
 		this.listaPokemon = crearListaPokemons(listaPokemon);
 
+		iterador = listaPokemon.listIterator();
+
+		siguiente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					mostrarAnterior();
+					anterior.grabFocus();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					mostrarSiguiente();
+				}
+			}
+		});
+
+		anterior.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					mostrarAnterior();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					mostrarSiguiente();
+					siguiente.grabFocus();
+				}
+			}
+		});
+
 		okButton.setVisible(false);
 		textField.setEnabled(false);
 
 		comboBox.setEnabled(false);
 		textField.setEnabled(false);
 		comboBox_2.setVisible(false);
-		
+
 		anterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarAnterior();
@@ -58,17 +89,16 @@ public class BuscarTipo extends VentanaPadre {
 	}
 
 	void actualizar() {
-		if (listaPokemon.size() == 0) {
-			return;
+		if (listaPokemon.size() == 1) {
+			siguiente.setEnabled(false);
+			anterior.setEnabled(false);
+		} else {
+			siguiente.setEnabled(true);
+			anterior.setEnabled(false);
 		}
+		pokemonCopia = iterador.next();
 
-		try {
-			indice = 0;
-			mostrarPokemon(listaPokemon.get(indice));
-			comprobarBotones();
-		} catch (PokemonNoExisteException e) {
-
-		}
+		mostrarPokemon(pokemonCopia);
 
 	}
 
@@ -76,10 +106,16 @@ public class BuscarTipo extends VentanaPadre {
 	 * Muestra el siguiente pokemon
 	 */
 	private void mostrarSiguiente() {
-		try {
-			mostrarPokemon(listaPokemon.get(++indice));
+		if (iterador.hasNext()) {
+			pokemonCopia = iterador.next();
+
+			mostrarPokemon(pokemonCopia);
+
 			comprobarBotones();
-		} catch (PokemonNoExisteException e) {
+			if (!iterador.hasNext()) {
+				iterador.previous();
+				anterior.grabFocus();
+			}
 
 		}
 
@@ -89,11 +125,17 @@ public class BuscarTipo extends VentanaPadre {
 	 * Muestra el pokemon anterior
 	 */
 	private void mostrarAnterior() {
-		try {
-			mostrarPokemon(listaPokemon.get(--indice));
-			comprobarBotones();
-		} catch (PokemonNoExisteException e) {
+		if (iterador.hasPrevious()) {
+			pokemonCopia = iterador.previous();
 
+			mostrarPokemon(pokemonCopia);
+
+			comprobarBotones();
+		}
+
+		if (!iterador.hasPrevious()) {
+			iterador.next();
+			siguiente.grabFocus();
 		}
 
 	}
@@ -121,21 +163,15 @@ public class BuscarTipo extends VentanaPadre {
 	 * no más pokemons para mostrar
 	 */
 	private void comprobarBotones() {
-
-		try {
-			if (listaPokemon.get(indice + 1) != null)
-				siguiente.setEnabled(true);
-		} catch (PokemonNoExisteException e) {
+		if (!iterador.hasNext()) {
 			siguiente.setEnabled(false);
+		} else {
+			siguiente.setEnabled(true);
 		}
-
-		try {
-			if (listaPokemon.get(indice - 1) != null)
-				anterior.setEnabled(true);
-
-		} catch (PokemonNoExisteException e) {
-			// TODO Auto-generated catch block
+		if (!iterador.hasPrevious()) {
 			anterior.setEnabled(false);
+		} else {
+			anterior.setEnabled(true);
 		}
 	}
 
