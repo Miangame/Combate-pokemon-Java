@@ -20,58 +20,24 @@ public class Electrico extends Pokemon implements Serializable, Defensable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Daño
-	 */
-	private int danioBase;
-
-	/**
-	 * Defensa
-	 */
-	private int defensa;
-
-	/**
-	 * Precisión del pokemon
-	 */
-	private int precision;
-
-	/**
 	 * Array de ataques
 	 */
 	private Ataque[] ataquesElectrico = new Ataque[4];
+	private static final int MINIMO = 8;
+	private static final int MAXIMO = 15;
 
 	public Electrico(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
-		this.danioBase = 14;
-		this.defensa = 11;
-		this.precision = 83;
-		generarAtaquesElectricos();
-	}
-
-	public int getDanio() {
-		return danioBase;
+		danioBase = 14;
+		defensa = 11;
+		precision = 83;
+		ataquesElectrico = generarAtaques(MINIMO, MAXIMO);
 	}
 
 	public Ataque getAtaques(int indice) {
 		if (indice >= 0 && indice <= 4)
 			return ataquesElectrico[indice];
 		return null;
-	}
-
-	/**
-	 * Genera 4 ataques para el pokemon de forma aleatoria
-	 */
-	private void generarAtaquesElectricos() {
-		int i = 0;
-
-		ataquesElectrico[i] = Ataque.values()[General.generarAleatorio(8, 15)];
-		for (i = 1; i < ataquesElectrico.length; i++) {
-			ataquesElectrico[i] = Ataque.values()[General.generarAleatorio(8, 15)];
-			for (int j = 0; j < i; j++) {
-				if (ataquesElectrico[i] == ataquesElectrico[j]) {
-					i--;
-				}
-			}
-		}
 	}
 
 	/**

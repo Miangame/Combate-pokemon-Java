@@ -20,58 +20,24 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Daño
-	 */
-	private int danioBase;
-
-	/**
-	 * Defensa
-	 */
-	private int defensa;
-
-	/**
-	 * Precisión
-	 */
-	private int precision;
-
-	/**
 	 * Array de ataques
 	 */
 	private Ataque[] ataquesVolador = new Ataque[4];
+	private static final int MINIMO = 32;
+	private static final int MAXIMO = 39;
 
 	public Volador(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
-		this.danioBase = 16;
-		this.defensa = 9;
-		this.precision = 81;
-		generarAtaquesVolador();
-	}
-
-	public int getDanio() {
-		return danioBase;
+		danioBase = 16;
+		defensa = 9;
+		precision = 81;
+		ataquesVolador = generarAtaques(MINIMO, MAXIMO);
 	}
 
 	public Ataque getAtaques(int indice) {
 		if (indice >= 0 && indice <= 4)
 			return ataquesVolador[indice];
 		return null;
-	}
-
-	/**
-	 * Genera 4 ataques para el pokemon
-	 */
-	private void generarAtaquesVolador() {
-		int i = 0;
-
-		ataquesVolador[i] = Ataque.values()[General.generarAleatorio(32, 39)];
-		for (i = 1; i < ataquesVolador.length; i++) {
-			ataquesVolador[i] = Ataque.values()[General.generarAleatorio(32, 39)];
-			for (int j = 0; j < i; j++) {
-				if (ataquesVolador[i] == ataquesVolador[j]) {
-					i--;
-				}
-			}
-		}
 	}
 
 	/**

@@ -20,35 +20,18 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Daño
-	 */
-	private int danioBase;
-
-	/**
-	 * Defensa
-	 */
-	private int defensa;
-
-	/**
-	 * Precisión
-	 */
-	private int precision;
-
-	/**
 	 * Array de ataques
 	 */
 	private Ataque[] ataquesFuego = new Ataque[4];
+	private static final int MINIMO = 16;
+	private static final int MAXIMO = 23;
 
 	public Fuego(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
-		this.danioBase = 16;
-		this.defensa = 9;
-		this.precision = 82;
-		generarAtaquesFuego();
-	}
-
-	public int getDanio() {
-		return danioBase;
+		danioBase = 16;
+		defensa = 9;
+		precision = 82;
+		ataquesFuego = generarAtaques(MINIMO, MAXIMO);
 	}
 
 	@Override
@@ -56,23 +39,6 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 		if (indice >= 0 && indice <= 4)
 			return ataquesFuego[indice];
 		return null;
-	}
-
-	/**
-	 * Genera 4 ataques para el pokemon
-	 */
-	private void generarAtaquesFuego() {
-		int i = 0;
-
-		ataquesFuego[i] = Ataque.values()[General.generarAleatorio(16, 23)];
-		for (i = 1; i < ataquesFuego.length; i++) {
-			ataquesFuego[i] = Ataque.values()[General.generarAleatorio(16, 23)];
-			for (int j = 0; j < i; j++) {
-				if (ataquesFuego[i] == ataquesFuego[j]) {
-					i--;
-				}
-			}
-		}
 	}
 
 	/**

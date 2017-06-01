@@ -20,58 +20,24 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Daño
-	 */
-	private int danioBase;
-
-	/**
-	 * Defensa
-	 */
-	private int defensa;
-
-	/**
-	 * Precisión
-	 */
-	private int precision;
-
-	/**
 	 * Array de ataques
 	 */
 	private Ataque[] ataquesPlanta = new Ataque[4];
+	private static final int MINIMO = 24;
+	private static final int MAXIMO = 31;
 
 	public Planta(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
-		this.danioBase = 13;
-		this.defensa = 9;
-		this.precision = 85;
-		generarAtaquesPlanta();
-	}
-
-	public int getDanio() {
-		return danioBase;
+		danioBase = 13;
+		defensa = 9;
+		precision = 85;
+		ataquesPlanta = generarAtaques(MINIMO, MAXIMO);
 	}
 
 	public Ataque getAtaques(int indice) {
 		if (indice >= 0 && indice <= 4)
 			return ataquesPlanta[indice];
 		return null;
-	}
-
-	/**
-	 * Genera 4 ataques para el pokemon
-	 */
-	private void generarAtaquesPlanta() {
-		int i = 0;
-
-		ataquesPlanta[i] = Ataque.values()[General.generarAleatorio(24, 31)];
-		for (i = 1; i < ataquesPlanta.length; i++) {
-			ataquesPlanta[i] = Ataque.values()[General.generarAleatorio(24, 31)];
-			for (int j = 0; j < i; j++) {
-				if (ataquesPlanta[i] == ataquesPlanta[j]) {
-					i--;
-				}
-			}
-		}
 	}
 
 	/**

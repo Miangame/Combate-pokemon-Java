@@ -20,35 +20,19 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Daño
-	 */
-	private int danioBase;
-
-	/**
-	 * Defensa
-	 */
-	private int defensa;
-
-	/**
-	 * Precisión del pokemon
-	 */
-	private int precision;
-
-	/**
 	 * Array de ataques
 	 */
-	private Ataque[] ataquesAgua = new Ataque[4];
+	private Ataque[] ataquesAgua;
+
+	private static final int MINIMO = 0;
+	private static final int MAXIMO = 7;
 
 	public Agua(String nombre, int vida) throws EnergiaNoValidaException {
 		super(nombre, vida);
-		this.danioBase = 15;
-		this.defensa = 10;
-		this.precision = 80;
-		generarAtaquesAgua();
-	}
-
-	public int getDanio() {
-		return danioBase;
+		danioBase = 15;
+		defensa = 10;
+		precision = 80;
+		ataquesAgua = generarAtaques(MINIMO, MAXIMO);
 	}
 
 	public Ataque getAtaques(int indice) {
@@ -58,25 +42,9 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 	}
 
 	/**
-	 * Genera 4 ataques para el pokemon de forma aleatoria
-	 */
-	private void generarAtaquesAgua() {
-		int i = 0;
-
-		ataquesAgua[i] = Ataque.values()[General.generarAleatorio(0, 7)];
-		for (i = 1; i < ataquesAgua.length; i++) {
-			ataquesAgua[i] = Ataque.values()[General.generarAleatorio(0, 7)];
-			for (int j = 0; j < i; j++) {
-				if (ataquesAgua[i] == ataquesAgua[j]) {
-					i--;
-				}
-			}
-		}
-	}
-
-	/**
 	 * Obtiene un valor para cada ataque
-	 * @throws EnergiaNoValidaException 
+	 * 
+	 * @throws EnergiaNoValidaException
 	 */
 	@Override
 	public int getAtaque(Ataque ataque) throws EnergiaNoValidaException {

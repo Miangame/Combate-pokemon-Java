@@ -383,9 +383,10 @@ public class Combate extends JDialog {
 			progressBarEnemigo.setValue(pokemonEnemigo.getVida());
 
 			progressBarEnemigoEnergia.setMaximum(pokemonEnemigo.getEnergia());
-			;
+
 			progressBarEnemigoEnergia.setMinimum(0);
 			progressBarEnemigoEnergia.setValue(pokemonEnemigo.getEnergia());
+
 		} catch (PokemonNoExisteException e) {
 			JOptionPane.showMessageDialog(contentPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}

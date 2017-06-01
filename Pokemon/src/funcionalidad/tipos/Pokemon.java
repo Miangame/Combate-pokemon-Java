@@ -2,6 +2,7 @@ package funcionalidad.tipos;
 
 import java.io.Serializable;
 
+import funcionalidad.General;
 import funcionalidad.enumeraciones.Ataque;
 import funcionalidad.excepciones.EnergiaNoValidaException;
 
@@ -31,6 +32,23 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 	 * Energía para realizar los ataques
 	 */
 	private int energia;
+	
+	/**
+	 * Daño
+	 */
+	protected int danioBase;
+
+	/**
+	 * Defensa
+	 */
+	protected int defensa;
+
+	/**
+	 * Precisión del pokemon
+	 */
+	protected int precision;
+	
+	private Ataque[] ataques = new Ataque[4];
 
 	public Pokemon(String nombre, int vida) throws EnergiaNoValidaException {
 		super();
@@ -64,6 +82,30 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 
 	void setVida(int vidaActual) {
 		this.vida = vidaActual;
+	}
+	
+	/**
+	 * Genera 4 ataques para el pokemon de forma aleatoria
+	 * @return 
+	 */
+	protected Ataque[] generarAtaques(int minimo, int maximo) {
+		int i = 0;
+		
+		ataques[i] = Ataque.values()[General.generarAleatorio(minimo, maximo)];
+		for (i = 1; i < ataques.length; i++) {
+			ataques[i] = Ataque.values()[General.generarAleatorio(minimo, maximo)];
+			for (int j = 0; j < i; j++) {
+				if (ataques[i] == ataques[j]) {
+					i--;
+				}
+			}
+		}
+		
+		return ataques;
+	}
+	
+	public int getDanio() {
+		return danioBase;
 	}
 
 	@Override
