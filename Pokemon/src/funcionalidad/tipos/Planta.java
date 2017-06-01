@@ -19,10 +19,6 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Array de ataques
-	 */
-	private Ataque[] ataquesPlanta = new Ataque[4];
 	private static final int MINIMO = 24;
 	private static final int MAXIMO = 31;
 
@@ -31,13 +27,7 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 		danioBase = 13;
 		defensa = 9;
 		precision = 85;
-		ataquesPlanta = generarAtaques(MINIMO, MAXIMO);
-	}
-
-	public Ataque getAtaques(int indice) {
-		if (indice >= 0 && indice <= 4)
-			return ataquesPlanta[indice];
-		return null;
+		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

@@ -19,11 +19,6 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Array de ataques
-	 */
-	private Ataque[] ataquesAgua;
-
 	private static final int MINIMO = 0;
 	private static final int MAXIMO = 7;
 
@@ -32,14 +27,9 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 		danioBase = 15;
 		defensa = 10;
 		precision = 80;
-		ataquesAgua = generarAtaques(MINIMO, MAXIMO);
+		generarAtaques(MINIMO, MAXIMO);
 	}
 
-	public Ataque getAtaques(int indice) {
-		if (indice >= 0 && indice <= 4)
-			return ataquesAgua[indice];
-		return null;
-	}
 
 	/**
 	 * Obtiene un valor para cada ataque

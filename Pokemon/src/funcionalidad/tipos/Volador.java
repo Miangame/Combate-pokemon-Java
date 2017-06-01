@@ -19,10 +19,6 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Array de ataques
-	 */
-	private Ataque[] ataquesVolador = new Ataque[4];
 	private static final int MINIMO = 32;
 	private static final int MAXIMO = 39;
 
@@ -31,13 +27,7 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 		danioBase = 16;
 		defensa = 9;
 		precision = 81;
-		ataquesVolador = generarAtaques(MINIMO, MAXIMO);
-	}
-
-	public Ataque getAtaques(int indice) {
-		if (indice >= 0 && indice <= 4)
-			return ataquesVolador[indice];
-		return null;
+		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

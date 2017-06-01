@@ -19,10 +19,6 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Array de ataques
-	 */
-	private Ataque[] ataquesFuego = new Ataque[4];
 	private static final int MINIMO = 16;
 	private static final int MAXIMO = 23;
 
@@ -31,14 +27,7 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 		danioBase = 16;
 		defensa = 9;
 		precision = 82;
-		ataquesFuego = generarAtaques(MINIMO, MAXIMO);
-	}
-
-	@Override
-	public Ataque getAtaques(int indice) {
-		if (indice >= 0 && indice <= 4)
-			return ataquesFuego[indice];
-		return null;
+		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

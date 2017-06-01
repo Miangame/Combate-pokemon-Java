@@ -88,7 +88,7 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 	 * Genera 4 ataques para el pokemon de forma aleatoria
 	 * @return 
 	 */
-	protected Ataque[] generarAtaques(int minimo, int maximo) {
+	protected void generarAtaques(int minimo, int maximo) {
 		int i = 0;
 		
 		ataques[i] = Ataque.values()[General.generarAleatorio(minimo, maximo)];
@@ -100,8 +100,6 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 				}
 			}
 		}
-		
-		return ataques;
 	}
 	
 	public int getDanio() {
@@ -137,7 +135,11 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 		return getNombre().compareTo(o.getNombre());
 	}
 
-	public abstract Ataque getAtaques(int indice);
+	public Ataque getAtaques(int indice) {
+		if (indice >= 0 && indice <= 4)
+			return ataques[indice];
+		return null;
+	}
 
 	public abstract int getAtaque(Ataque ataque) throws EnergiaNoValidaException;
 
