@@ -32,7 +32,7 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 	 * Energía para realizar los ataques
 	 */
 	private int energia;
-	
+
 	/**
 	 * Daño
 	 */
@@ -47,7 +47,7 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 	 * Precisión del pokemon
 	 */
 	protected int precision;
-	
+
 	private Ataque[] ataques = new Ataque[4];
 
 	public Pokemon(String nombre, int vida) throws EnergiaNoValidaException {
@@ -83,14 +83,16 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 	void setVida(int vidaActual) {
 		this.vida = vidaActual;
 	}
-	
+
 	/**
 	 * Genera 4 ataques para el pokemon de forma aleatoria
-	 * @return 
+	 * 
+	 * @param minimo
+	 * @param maximo
 	 */
 	protected void generarAtaques(int minimo, int maximo) {
 		int i = 0;
-		
+
 		ataques[i] = Ataque.values()[General.generarAleatorio(minimo, maximo)];
 		for (i = 1; i < ataques.length; i++) {
 			ataques[i] = Ataque.values()[General.generarAleatorio(minimo, maximo)];
@@ -101,7 +103,7 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 			}
 		}
 	}
-	
+
 	public int getDanio() {
 		return danioBase;
 	}
