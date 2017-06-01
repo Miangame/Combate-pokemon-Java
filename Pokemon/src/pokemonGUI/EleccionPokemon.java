@@ -133,39 +133,39 @@ public class EleccionPokemon extends JDialog {
 			}
 
 		});
-		
+
 		comboBox_7 = new JComboBox<Pokemon>();
 		comboBox_7.setBounds(244, 145, 114, 24);
 		contentPane.add(comboBox_7);
-		
+
 		comboBox_8 = new JComboBox<Pokemon>();
 		comboBox_8.setBounds(244, 172, 114, 24);
 		contentPane.add(comboBox_8);
-		
+
 		comboBox_9 = new JComboBox<Pokemon>();
 		comboBox_9.setBounds(244, 199, 114, 24);
 		contentPane.add(comboBox_9);
-		
+
 		comboBox_10 = new JComboBox<Pokemon>();
 		comboBox_10.setBounds(244, 226, 114, 24);
 		contentPane.add(comboBox_10);
-		
+
 		comboBox_11 = new JComboBox<Pokemon>();
 		comboBox_11.setBounds(244, 253, 114, 24);
 		contentPane.add(comboBox_11);
-		
+
 		comboBox_12 = new JComboBox<Pokemon>();
 		comboBox_12.setBounds(244, 280, 114, 24);
 		contentPane.add(comboBox_12);
 		btnAceptar.setBounds(380, 449, 117, 25);
 		contentPane.add(btnAceptar);
-		
+
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setBounds(155, 118, 40, 15);
 		contentPane.add(lblTipo);
-		
+
 		String[] tipos = { "Agua", "Fuego", "Electrico", "Volador", "Planta" };
-		
+
 		JLabel lblPokemon = new JLabel("Pokemon");
 		lblPokemon.setBounds(269, 118, 70, 15);
 		contentPane.add(lblPokemon);
@@ -174,86 +174,76 @@ public class EleccionPokemon extends JDialog {
 		labelFondo.setIcon(new ImageIcon(EleccionPokemon.class.getResource("/resources/img/fondoEleccion.png")));
 		labelFondo.setBounds(0, 0, 509, 486);
 		contentPane.add(labelFondo);
-		
+
 		comboBox_1.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				comboBox_7.setModel(new DefaultComboBoxModel(getPokemons(comboBox_1)));
 			}
 
-			
 		});
 		comboBox_1.setModel(new DefaultComboBoxModel(tipos));
 		comboBox_7.setModel(new DefaultComboBoxModel(getPokemons(comboBox_1)));
-		
+
 		comboBox_2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				comboBox_8.setModel(new DefaultComboBoxModel(getPokemons(comboBox_2)));
 			}
 
-			
 		});
 		comboBox_2.setModel(new DefaultComboBoxModel(tipos));
 		comboBox_8.setModel(new DefaultComboBoxModel(getPokemons(comboBox_2)));
-		
+
 		comboBox_3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				comboBox_9.setModel(new DefaultComboBoxModel(getPokemons(comboBox_3)));
 			}
 
-			
 		});
 		comboBox_3.setModel(new DefaultComboBoxModel(tipos));
 		comboBox_9.setModel(new DefaultComboBoxModel(getPokemons(comboBox_3)));
-		
+
 		comboBox_4.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				comboBox_10.setModel(new DefaultComboBoxModel(getPokemons(comboBox_4)));
 			}
 
-			
 		});
 		comboBox_4.setModel(new DefaultComboBoxModel(tipos));
 		comboBox_10.setModel(new DefaultComboBoxModel(getPokemons(comboBox_4)));
-		
+
 		comboBox_5.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				comboBox_11.setModel(new DefaultComboBoxModel(getPokemons(comboBox_5)));
 			}
 
-			
 		});
 		comboBox_5.setModel(new DefaultComboBoxModel(tipos));
 		comboBox_11.setModel(new DefaultComboBoxModel(getPokemons(comboBox_5)));
-		
+
 		comboBox_6.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				comboBox_12.setModel(new DefaultComboBoxModel(getPokemons(comboBox_6)));
 			}
 
-			
 		});
 		comboBox_6.setModel(new DefaultComboBoxModel(tipos));
 		comboBox_12.setModel(new DefaultComboBoxModel(getPokemons(comboBox_6)));
 
-		
-		
 	}
-	
+
 	private Object[] getPokemons(JComboBox<Pokemon> comboBox_1) {
 		try {
 			return Principal.listaPokemon.getPokemonsTipo(comboBox_1.getSelectedItem()).toArray();
 		} catch (PokemonNoExisteException e) {
-			
+
 		}
 		return null;
 	}
-
 
 	/**
 	 * Añade los pokemons seleccionados en los comboboxes al cinturón del
 	 * jugador
 	 * 
-	 * @param jugador1
 	 * @throws PokemonYaExisteException
 	 */
 	private void aniadirPokemons() throws PokemonYaExisteException {

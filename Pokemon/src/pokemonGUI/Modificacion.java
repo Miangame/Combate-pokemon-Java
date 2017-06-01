@@ -27,7 +27,7 @@ public class Modificacion extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 * 
-	 * @param object
+	 * @param pokemon
 	 */
 	@SuppressWarnings("unchecked")
 	public Modificacion(Pokemon pokemon) {

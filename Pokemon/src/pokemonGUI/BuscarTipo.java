@@ -179,7 +179,7 @@ public class BuscarTipo extends VentanaPadre {
 	 * Genera un arrayList de pokemons
 	 * 
 	 * @param listaPokemon
-	 * @returnLista de pokemons
+	 * @return Lista de pokemons
 	 */
 	private EnvoltorioPokemons crearListaPokemons(ArrayList<Pokemon> listaPokemon) {
 		EnvoltorioPokemons listaPokemonsTipo = new EnvoltorioPokemons();
