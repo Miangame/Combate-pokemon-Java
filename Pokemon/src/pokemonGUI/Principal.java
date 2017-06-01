@@ -228,7 +228,7 @@ public class Principal extends JFrame {
 
 	private void abrirAyuda() {
 		try {
-			Desktop.getDesktop().browse(new URI("http://es.pokemon.wikia.com/wiki/WikiDex"));
+			Desktop.getDesktop().browse(new URI("http://rincondelprogramador.esy.es/PokemonBattles/index.html"));
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(frame, "No se ha podido abrir la ayuda", "Mensaje de error",

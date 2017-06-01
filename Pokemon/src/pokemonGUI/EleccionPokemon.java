@@ -165,6 +165,10 @@ public class EleccionPokemon extends JDialog {
 		contentPane.add(lblTipo);
 		
 		String[] tipos = { "Agua", "Fuego", "Electrico", "Volador", "Planta" };
+		
+		JLabel lblPokemon = new JLabel("Pokemon");
+		lblPokemon.setBounds(269, 118, 70, 15);
+		contentPane.add(lblPokemon);
 
 		JLabel labelFondo = new JLabel("");
 		labelFondo.setIcon(new ImageIcon(EleccionPokemon.class.getResource("/resources/img/fondoEleccion.png")));
