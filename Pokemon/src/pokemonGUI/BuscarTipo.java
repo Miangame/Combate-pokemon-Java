@@ -29,6 +29,7 @@ public class BuscarTipo extends VentanaPadre {
 	private EnvoltorioPokemons listaPokemon;
 	private ListIterator<Pokemon> iterador;
 	private Pokemon pokemonCopia;
+	private Pokemon pokemonActual;
 
 	/**
 	 * Create the dialog.
@@ -49,7 +50,10 @@ public class BuscarTipo extends VentanaPadre {
 					anterior.grabFocus();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					mostrarSiguiente();
+					if (iterador.hasNext()) {
+						mostrarSiguiente();
+					}
+
 				}
 			}
 		});
@@ -61,8 +65,12 @@ public class BuscarTipo extends VentanaPadre {
 					mostrarAnterior();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					mostrarSiguiente();
-					siguiente.grabFocus();
+					try {
+						mostrarSiguiente();
+						siguiente.grabFocus();
+					} catch (Exception e2) {
+					}
+
 				}
 			}
 		});
@@ -97,7 +105,7 @@ public class BuscarTipo extends VentanaPadre {
 			anterior.setEnabled(false);
 		}
 		pokemonCopia = iterador.next();
-
+		pokemonActual = pokemonCopia;
 		mostrarPokemon(pokemonCopia);
 
 	}
@@ -108,10 +116,15 @@ public class BuscarTipo extends VentanaPadre {
 	private void mostrarSiguiente() {
 		if (iterador.hasNext()) {
 			pokemonCopia = iterador.next();
-
+			if (pokemonActual == pokemonCopia) {
+				pokemonCopia = iterador.next();
+			}
 			mostrarPokemon(pokemonCopia);
 
 			comprobarBotones();
+
+			pokemonActual = pokemonCopia;
+
 			if (!iterador.hasNext()) {
 				iterador.previous();
 				anterior.grabFocus();
@@ -127,10 +140,14 @@ public class BuscarTipo extends VentanaPadre {
 	private void mostrarAnterior() {
 		if (iterador.hasPrevious()) {
 			pokemonCopia = iterador.previous();
-
+			if (pokemonActual == pokemonCopia) {
+				pokemonCopia = iterador.previous();
+			}
 			mostrarPokemon(pokemonCopia);
 
 			comprobarBotones();
+
+			pokemonActual = pokemonCopia;
 		}
 
 		if (!iterador.hasPrevious()) {

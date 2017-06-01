@@ -25,6 +25,7 @@ public class Mostrar extends VentanaPadre {
 	private static final long serialVersionUID = 1L;
 	private ListIterator<Pokemon> iterador;
 	private Pokemon pokemonCopia;
+	private Pokemon pokemonActual;
 
 	/**
 	 * Create the dialog.
@@ -35,8 +36,12 @@ public class Mostrar extends VentanaPadre {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					mostrarAnterior();
-					anterior.grabFocus();
+					try{
+						mostrarAnterior();
+						anterior.grabFocus();
+					}catch(Exception e2){
+						
+					}
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					mostrarSiguiente();
@@ -48,7 +53,11 @@ public class Mostrar extends VentanaPadre {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					mostrarAnterior();
+					if (iterador.hasPrevious()) {
+						mostrarAnterior();
+					} else {
+						siguiente.grabFocus();
+					}
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					mostrarSiguiente();
@@ -98,7 +107,7 @@ public class Mostrar extends VentanaPadre {
 		}
 
 		pokemonCopia = iterador.next();
-
+		pokemonActual = pokemonCopia;
 		mostrarPokemon(pokemonCopia);
 
 	}
@@ -110,9 +119,12 @@ public class Mostrar extends VentanaPadre {
 
 		if (iterador.hasNext()) {
 			pokemonCopia = iterador.next();
+			if (pokemonActual == pokemonCopia) {
+				pokemonCopia = iterador.next();
+			}
 			mostrarPokemon(pokemonCopia);
 			comprobarBotones();
-
+			pokemonActual = pokemonCopia;
 			if (!iterador.hasNext()) {
 				iterador.previous();
 			}
@@ -128,9 +140,12 @@ public class Mostrar extends VentanaPadre {
 
 		if (iterador.hasPrevious()) {
 			pokemonCopia = iterador.previous();
+			if (pokemonActual == pokemonCopia) {
+				pokemonCopia = iterador.previous();
+			}
 			mostrarPokemon(pokemonCopia);
 			comprobarBotones();
-
+			pokemonActual = pokemonCopia;
 			if (!iterador.hasPrevious()) {
 				iterador.next();
 			}
