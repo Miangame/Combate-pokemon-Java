@@ -46,6 +46,9 @@ public class BuscarTipo extends VentanaPadre {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					if (!anterior.isEnabled()) {
+						return;
+					}
 					mostrarAnterior();
 					anterior.grabFocus();
 				}
@@ -65,11 +68,11 @@ public class BuscarTipo extends VentanaPadre {
 					mostrarAnterior();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					try {
-						mostrarSiguiente();
-						siguiente.grabFocus();
-					} catch (Exception e2) {
+					if (!siguiente.isEnabled()) {
+						return;
 					}
+					mostrarSiguiente();
+					siguiente.grabFocus();
 
 				}
 			}

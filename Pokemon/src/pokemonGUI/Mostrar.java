@@ -36,12 +36,12 @@ public class Mostrar extends VentanaPadre {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					try{
+					if (!anterior.isEnabled()) {
+						return;
+					}
 						mostrarAnterior();
 						anterior.grabFocus();
-					}catch(Exception e2){
-						
-					}
+					
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					mostrarSiguiente();
@@ -53,13 +53,14 @@ public class Mostrar extends VentanaPadre {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					if (iterador.hasPrevious()) {
+						
 						mostrarAnterior();
-					} else {
-						siguiente.grabFocus();
-					}
+					
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					if (!siguiente.isEnabled()) {
+						return;
+					}
 					mostrarSiguiente();
 					siguiente.grabFocus();
 				}
