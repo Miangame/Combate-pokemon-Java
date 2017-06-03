@@ -79,11 +79,12 @@ public class Modificacion extends VentanaPadre {
 
 			Principal.listaPokemon.eliminar(pokemon);
 			Principal.listaPokemon.escribir();
+
+			JOptionPane.showMessageDialog(null, "Modificado correctamente");
 		} catch (PokemonYaExisteException | PokemonNoExisteException | IOException | EnergiaNoValidaException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 
-		JOptionPane.showMessageDialog(null, "Modificado correctamente");
 
 	}
 }
