@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Simula un combate entre pokemons
@@ -81,6 +83,13 @@ public class Combate extends JDialog {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Combate() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				huir();
+			}
+		});
+		setTitle("Combate");
 		setModal(true);
 
 		try {
@@ -90,7 +99,6 @@ public class Combate extends JDialog {
 		}
 
 		setResizable(false);
-		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 25, 701, 483);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,9 +132,9 @@ public class Combate extends JDialog {
 		btnHuir = new JButton("Huir");
 		btnHuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pantallaFinal = new PantallaFinal(jugador2);
-				pantallaFinal.setVisible(true);
+				huir();
 			}
+
 		});
 		btnHuir.setBounds(274, 71, 123, 38);
 		panelBotones.add(btnHuir);
@@ -214,7 +222,7 @@ public class Combate extends JDialog {
 		progressBarEnemigo = new JProgressBar();
 		progressBarEnemigo.setStringPainted(true);
 		progressBarEnemigo.setForeground(Color.GREEN);
-		progressBarEnemigo.setBounds(44, 49, 171, 14);
+		progressBarEnemigo.setBounds(54, 49, 171, 14);
 		contentPane.add(progressBarEnemigo);
 
 		progressBarAliado = new JProgressBar();
@@ -226,7 +234,7 @@ public class Combate extends JDialog {
 		progressBarEnemigoEnergia = new JProgressBar();
 		progressBarEnemigoEnergia.setStringPainted(true);
 		progressBarEnemigoEnergia.setForeground(Color.BLUE);
-		progressBarEnemigoEnergia.setBounds(44, 75, 171, 14);
+		progressBarEnemigoEnergia.setBounds(54, 75, 171, 14);
 		contentPane.add(progressBarEnemigoEnergia);
 
 		progressBarAliadoEnergia = new JProgressBar();
@@ -235,29 +243,29 @@ public class Combate extends JDialog {
 		progressBarAliadoEnergia.setBounds(491, 230, 171, 14);
 		contentPane.add(progressBarAliadoEnergia);
 
-		JLabel lblPs = new JLabel("PS");
+		JLabel lblPs = new JLabel("Vida");
 		lblPs.setForeground(Color.WHITE);
-		lblPs.setBounds(12, 48, 28, 15);
+		lblPs.setBounds(14, 48, 40, 15);
 		contentPane.add(lblPs);
 
-		JLabel lblEnerga = new JLabel("PP");
+		JLabel lblEnerga = new JLabel("Energía");
 		lblEnerga.setForeground(Color.WHITE);
-		lblEnerga.setBounds(12, 74, 28, 15);
+		lblEnerga.setBounds(0, 74, 54, 15);
 		contentPane.add(lblEnerga);
 
-		JLabel lblPs_1 = new JLabel("PS");
+		JLabel lblPs_1 = new JLabel("Vida");
 		lblPs_1.setForeground(Color.WHITE);
-		lblPs_1.setBounds(445, 203, 28, 15);
+		lblPs_1.setBounds(445, 203, 44, 15);
 		contentPane.add(lblPs_1);
 
-		JLabel lblPp = new JLabel("PP");
+		JLabel lblPp = new JLabel("Energía");
 		lblPp.setForeground(Color.WHITE);
-		lblPp.setBounds(445, 229, 28, 15);
+		lblPp.setBounds(435, 229, 54, 15);
 		contentPane.add(lblPp);
 
 		lblNombreEnemigo = new JLabel();
 		lblNombreEnemigo.setForeground(Color.WHITE);
-		lblNombreEnemigo.setBounds(44, 22, 135, 15);
+		lblNombreEnemigo.setBounds(54, 22, 135, 15);
 		contentPane.add(lblNombreEnemigo);
 
 		lblNombreAliado = new JLabel();
@@ -287,10 +295,19 @@ public class Combate extends JDialog {
 	}
 
 	/**
+	 * Huye del combate
+	 */
+	private void huir() {
+		pantallaFinal = new PantallaFinal(jugador2);
+		pantallaFinal.setVisible(true);
+		dispose();
+	}
+
+	/**
 	 * Cambia el pokemon según el seleccionado
 	 */
 	private void cambiarPokemon() {
-
+		comboBox.setVisible(true);
 		boolean bandera = true;
 
 		if (comboBox.getSelectedItem() == pokemonAliado) {

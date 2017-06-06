@@ -19,15 +19,11 @@ public class Electrico extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int MINIMO = 8;
-	private static final int MAXIMO = 15;
-
 	public Electrico(String nombre, int vida) throws EnergiaNoValidaException {
-		super(nombre, vida);
+		super(8, 15, nombre, vida);
 		danioBase = 14;
 		defensa = 11;
 		precision = 83;
-		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

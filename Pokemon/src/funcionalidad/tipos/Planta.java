@@ -19,15 +19,11 @@ public class Planta extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int MINIMO = 24;
-	private static final int MAXIMO = 31;
-
 	public Planta(String nombre, int vida) throws EnergiaNoValidaException {
-		super(nombre, vida);
+		super(24, 31, nombre, vida);
 		danioBase = 13;
 		defensa = 9;
 		precision = 85;
-		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

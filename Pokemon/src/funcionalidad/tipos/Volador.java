@@ -19,15 +19,11 @@ public class Volador extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int MINIMO = 32;
-	private static final int MAXIMO = 39;
-
 	public Volador(String nombre, int vida) throws EnergiaNoValidaException {
-		super(nombre, vida);
+		super(32, 39, nombre, vida);
 		danioBase = 16;
 		defensa = 9;
 		precision = 81;
-		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

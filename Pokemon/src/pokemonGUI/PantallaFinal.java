@@ -33,6 +33,7 @@ public class PantallaFinal extends JDialog {
 	 * @param jugador
 	 */
 	public PantallaFinal(Usuario jugador) {
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -72,7 +73,9 @@ public class PantallaFinal extends JDialog {
 				JButton cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
+						Principal principal = new Principal();
+						principal.setVisible(true);
+						dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

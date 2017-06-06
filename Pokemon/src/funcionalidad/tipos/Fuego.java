@@ -19,15 +19,11 @@ public class Fuego extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int MINIMO = 16;
-	private static final int MAXIMO = 23;
-
 	public Fuego(String nombre, int vida) throws EnergiaNoValidaException {
-		super(nombre, vida);
+		super(16, 23, nombre, vida);
 		danioBase = 16;
 		defensa = 9;
 		precision = 82;
-		generarAtaques(MINIMO, MAXIMO);
 	}
 
 	/**

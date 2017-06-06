@@ -19,17 +19,12 @@ public class Agua extends Pokemon implements Serializable, Defensable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int MINIMO = 0;
-	private static final int MAXIMO = 7;
-
 	public Agua(String nombre, int vida) throws EnergiaNoValidaException {
-		super(nombre, vida);
+		super(0, 7, nombre, vida);
 		danioBase = 15;
 		defensa = 10;
 		precision = 80;
-		generarAtaques(MINIMO, MAXIMO);
 	}
-
 
 	/**
 	 * Obtiene un valor para cada ataque

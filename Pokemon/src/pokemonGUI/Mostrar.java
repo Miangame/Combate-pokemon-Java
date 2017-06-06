@@ -39,12 +39,15 @@ public class Mostrar extends VentanaPadre {
 					if (!anterior.isEnabled()) {
 						return;
 					}
-						mostrarAnterior();
-						anterior.grabFocus();
-					
+					mostrarAnterior();
+
+					anterior.grabFocus();
+
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					mostrarSiguiente();
+					anterior.grabFocus();
+
 				}
 			}
 		});
@@ -53,9 +56,9 @@ public class Mostrar extends VentanaPadre {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-						
-						mostrarAnterior();
-					
+
+					mostrarAnterior();
+
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					if (!siguiente.isEnabled()) {
@@ -63,6 +66,7 @@ public class Mostrar extends VentanaPadre {
 					}
 					mostrarSiguiente();
 					siguiente.grabFocus();
+
 				}
 			}
 		});
@@ -178,6 +182,7 @@ public class Mostrar extends VentanaPadre {
 
 		if (!iterador.hasNext()) {
 			siguiente.setEnabled(false);
+			anterior.grabFocus();
 		} else {
 			siguiente.setEnabled(true);
 		}

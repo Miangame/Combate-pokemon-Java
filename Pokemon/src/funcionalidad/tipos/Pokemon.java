@@ -50,11 +50,12 @@ public abstract class Pokemon implements Serializable, Comparable<Pokemon> {
 
 	private Ataque[] ataques = new Ataque[4];
 
-	public Pokemon(String nombre, int vida) throws EnergiaNoValidaException {
+	public Pokemon(int minimo, int maximo, String nombre, int vida) throws EnergiaNoValidaException {
 		super();
 		setNombre(nombre);
 		setVida(vida);
 		setEnergia(100);
+		generarAtaques(minimo, maximo);
 	}
 
 	public int getEnergia() {

@@ -17,6 +17,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * El jugador elige 6 pokemons
@@ -49,6 +51,13 @@ public class EleccionPokemon extends JDialog {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public EleccionPokemon() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GestionPokemon gestion = new GestionPokemon();
+				gestion.setVisible(true);
+			}
+		});
 		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 511, 516);

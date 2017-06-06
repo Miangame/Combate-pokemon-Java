@@ -32,6 +32,8 @@ import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Gestiona las altas, bajas y modificaciones de los pokemons
@@ -51,6 +53,13 @@ public class GestionPokemon extends JDialog {
 	 * Create the dialog.
 	 */
 	public GestionPokemon() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				volver();
+			}
+
+		});
 		setTitle("Gestión de pokemons");
 		setResizable(false);
 		setBounds(100, 100, 654, 417);
@@ -109,25 +118,25 @@ public class GestionPokemon extends JDialog {
 			}
 		});
 		mnGestin.add(mntmMostrarTodosLos);
-				
-				JSeparator separator_1 = new JSeparator();
-				mnGestin.add(separator_1);
-		
-				JMenuItem mntmGenerarPokemons = new JMenuItem("Generar pokemons");
-				mnGestin.add(mntmGenerarPokemons);
-				mntmGenerarPokemons.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
-				mntmGenerarPokemons.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (new File("pokemons.obj").exists()) {
-							JOptionPane.showMessageDialog(contentPanel, "Ya existen pokemons cargados", "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							generarPokemons();
-							JOptionPane.showMessageDialog(contentPanel, "Pokemons generados correctamente");
-						}
-					}
 
-				});
+		JSeparator separator_1 = new JSeparator();
+		mnGestin.add(separator_1);
+
+		JMenuItem mntmGenerarPokemons = new JMenuItem("Generar pokemons");
+		mnGestin.add(mntmGenerarPokemons);
+		mntmGenerarPokemons.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
+		mntmGenerarPokemons.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (new File("pokemons.obj").exists()) {
+					JOptionPane.showMessageDialog(contentPanel, "Ya existen pokemons cargados", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					generarPokemons();
+					JOptionPane.showMessageDialog(contentPanel, "Pokemons generados correctamente");
+				}
+			}
+
+		});
 
 		JMenu mnBuscarPor = new JMenu("Buscar por...");
 		mnBuscarPor.setMnemonic('b');
@@ -169,8 +178,10 @@ public class GestionPokemon extends JDialog {
 							JOptionPane.showMessageDialog(contentPanel, "¡No hay pokemons precargados!", "ERROR",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
+							dispose();
 							EleccionPokemon eleccion = new EleccionPokemon();
 							eleccion.setVisible(true);
+
 						}
 					}
 				});
@@ -182,15 +193,22 @@ public class GestionPokemon extends JDialog {
 				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
-						Principal principal = new Principal();
-						principal.setVisible(true);
+						volver();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	/**
+	 * Vuelve a la pantalla anterior
+	 */
+	private void volver() {
+		dispose();
+		Principal principal = new Principal();
+		principal.setVisible(true);
 	}
 
 	/**
