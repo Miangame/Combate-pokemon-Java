@@ -23,6 +23,11 @@ public class Usuario implements Serializable {
 	 * Alias del usuario
 	 */
 	private String alias;
+	
+	/**
+	 * Contraseña del usuario
+	 */
+	private String contrasenia;
 
 	/**
 	 * Lista de pokemons
@@ -38,9 +43,15 @@ public class Usuario implements Serializable {
 	 * Patrón para comprobar que el alias del usuario es correcto
 	 */
 	static final private Pattern patronUsuario = Pattern.compile("\\w{2,}[ ]?\\w{2,}");
+	
+	/**
+	 * Patrón para comprobar que el alias del usuario es correcto
+	 */
+	static final private Pattern patronContrasenia = Pattern.compile(".*{2,}");
 
-	public Usuario(String nombre) throws UsuarioNoValidoException {
+	public Usuario(String nombre, String contrasenia) throws UsuarioNoValidoException, ContraseniaNoValidaException {
 		setAlias(nombre);
+		setContrasenia(contrasenia);
 		setFechaRegistro(Calendar.getInstance());
 	}
 
@@ -50,8 +61,28 @@ public class Usuario implements Serializable {
 
 	public void setAlias(String alias) throws UsuarioNoValidoException {
 		if (!usuarioValido(alias))
-			throw new UsuarioNoValidoException("El usuario no es valido");
+			throw new UsuarioNoValidoException("El usuario no es válido");
 		this.alias = alias;
+	}
+	
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) throws ContraseniaNoValidaException {
+		if (!contraseniaValida(contrasenia)) 
+			throw new ContraseniaNoValidaException("La contraseña no es válida");
+		
+		this.contrasenia = contrasenia;
+	}
+
+	/**
+	 * Comprueba que la contraseña sea válida
+	 * @param contrasenia2
+	 * @return
+	 */
+	private boolean contraseniaValida(String contrasenia2) {
+		return patronContrasenia.matcher(contrasenia2).matches();
 	}
 
 	/**

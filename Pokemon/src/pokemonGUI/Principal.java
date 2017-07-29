@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import funcionalidad.ContraseniaNoValidaException;
 import funcionalidad.EnvoltorioPokemons;
 import funcionalidad.ManejoUsuarios;
 import funcionalidad.Usuario;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JPasswordField;
 
 /**
  * Login del juego.
@@ -67,6 +69,7 @@ public class Principal extends JFrame {
 	static EnvoltorioPokemons listaPokemon = new EnvoltorioPokemons();
 
 	static Usuario jugador1;
+	private JPasswordField passwordField;
 
 	/**
 	 * Inicia la aplicaciï¿½n
@@ -118,7 +121,7 @@ public class Principal extends JFrame {
 				registroUsuario.setVisible(true);
 			}
 		});
-		botonCrearCuenta.setBounds(287, 457, 186, 47);
+		botonCrearCuenta.setBounds(287, 456, 186, 47);
 		contentPane.add(botonCrearCuenta);
 
 		JButton botonLogin = new JButton("Entrar");
@@ -126,35 +129,22 @@ public class Principal extends JFrame {
 
 		botonLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				entrar();
 			}
 		});
-		botonLogin.setBounds(89, 457, 186, 47);
+		botonLogin.setBounds(89, 456, 186, 47);
 		contentPane.add(botonLogin);
 
 		fieldNombre = new JTextField();
-		fieldNombre.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					entrar();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_F1) {
-					abrirAyuda();
-				}
-			}
-		});
-
 		fieldNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		fieldNombre.setBounds(287, 392, 186, 30);
+		fieldNombre.setBounds(287, 373, 186, 30);
 		contentPane.add(fieldNombre);
 		fieldNombre.setColumns(10);
 
 		labelUsuario = new JLabel("Nombre de usuario:");
 		labelUsuario.setForeground(Color.ORANGE);
 		labelUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
-		labelUsuario.setBounds(89, 391, 162, 30);
+		labelUsuario.setBounds(89, 372, 162, 30);
 		contentPane.add(labelUsuario);
 
 		JButton botonAcercaDe = new JButton("Acerca De");
@@ -181,6 +171,27 @@ public class Principal extends JFrame {
 				acercaDe.setVisible(true);
 			}
 		});
+
+		JLabel lblContrasea = new JLabel("Contraseña:");
+		lblContrasea.setForeground(Color.ORANGE);
+		lblContrasea.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblContrasea.setBounds(89, 414, 162, 30);
+		contentPane.add(lblContrasea);
+
+		passwordField = new JPasswordField();
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					entrar();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_F1) {
+					abrirAyuda();
+				}
+			}
+		});
+		passwordField.setBounds(287, 415, 186, 30);
+		contentPane.add(passwordField);
 		botonAcercaDe.setBounds(89, 587, 127, 53);
 		contentPane.add(botonAcercaDe);
 
@@ -208,6 +219,27 @@ public class Principal extends JFrame {
 		});
 		botonAyuda.setBounds(287, 587, 139, 53);
 		contentPane.add(botonAyuda);
+
+		JButton btnhaOlvidadoSu = new JButton("¿Ha olvidado su contraseña?");
+		btnhaOlvidadoSu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnhaOlvidadoSu.setForeground(Color.WHITE);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnhaOlvidadoSu.setForeground(Color.BLACK);
+			}
+		});
+		btnhaOlvidadoSu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnhaOlvidadoSu.setOpaque(false);
+		btnhaOlvidadoSu.setMnemonic('d');
+		btnhaOlvidadoSu.setForeground(Color.BLACK);
+		btnhaOlvidadoSu.setContentAreaFilled(false);
+		btnhaOlvidadoSu.setBorderPainted(false);
+		btnhaOlvidadoSu.setBounds(287, 509, 237, 35);
+		contentPane.add(btnhaOlvidadoSu);
 
 		JLabel tituloLabel = new JLabel("");
 		tituloLabel.setIcon(new ImageIcon(Principal.class.getResource("/resources/img/titulo.png")));
@@ -241,19 +273,30 @@ public class Principal extends JFrame {
 	 */
 	private void entrar() {
 		try {
-			jugador1 = ManejoUsuarios.getUsuario((fieldNombre.getText()));
+			jugador1 = ManejoUsuarios.getUsuario((fieldNombre.getText()), passwordField.getPassword().toString());
 
-			JOptionPane.showMessageDialog(frame, "Logeado correctamente", "Informaci�n",
-					JOptionPane.INFORMATION_MESSAGE);
+			char[] c = passwordField.getPassword();
+			String s1 = new String(c);
+			String s2 = jugador1.getContrasenia();
 
-			dispose();
+			if (!s1.equals(s2)) {
+				JOptionPane.showMessageDialog(frame, "El usuario o la contraseña no son correctos", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(frame, "Logeado correctamente", "Informaci�n",
+						JOptionPane.INFORMATION_MESSAGE);
 
-			GestionPokemon gestion = new GestionPokemon();
-			gestion.setVisible(true);
+				dispose();
 
-		} catch (ElementoNoExisteException | UsuarioNoValidoException e1) {
-			JOptionPane.showMessageDialog(frame, "El usuario no existe", "ERROR", JOptionPane.ERROR_MESSAGE);
+				GestionPokemon gestion = new GestionPokemon();
+				gestion.setVisible(true);
+			}
+
+		} catch (ElementoNoExisteException | UsuarioNoValidoException | ContraseniaNoValidaException e1) {
+			JOptionPane.showMessageDialog(frame, "El usuario o la contraseña no son correctos", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 			fieldNombre.setText("");
+			passwordField.setText("");
 		}
 
 	}

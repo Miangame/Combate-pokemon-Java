@@ -35,9 +35,10 @@ public class ManejoUsuarios {
 	 * @return Datos del usuario.
 	 * @throws ElementoNoExisteException
 	 * @throws UsuarioNoValidoException
+	 * @throws ContraseniaNoValidaException 
 	 */
-	public static Usuario getUsuario(String nombre) throws ElementoNoExisteException, UsuarioNoValidoException {
-		return listaUsuarios.getElemento(new Usuario(nombre));
+	public static Usuario getUsuario(String nombre, String contrasenia) throws ElementoNoExisteException, UsuarioNoValidoException, ContraseniaNoValidaException {
+		return listaUsuarios.getElemento(new Usuario(nombre, contrasenia));
 	}
 
 	/**

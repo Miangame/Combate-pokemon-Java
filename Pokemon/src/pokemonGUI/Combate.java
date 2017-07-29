@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import funcionalidad.ContraseniaNoValidaException;
 import funcionalidad.General;
 import funcionalidad.Usuario;
 import funcionalidad.enumeraciones.Ataque;
@@ -93,8 +94,8 @@ public class Combate extends JDialog {
 		setModal(true);
 
 		try {
-			jugador2 = new Usuario("Entrenador Pepe");
-		} catch (UsuarioNoValidoException e1) {
+			jugador2 = new Usuario("Entrenador Pepe", "1111");
+		} catch (UsuarioNoValidoException | ContraseniaNoValidaException e1) {
 			e1.printStackTrace();
 		}
 
