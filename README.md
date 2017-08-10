@@ -110,3 +110,6 @@ Para controlar que la dirección de correo, contraseña y nombre de usuario sean
 <li><b>Fechas</b></li>
 Para calcular cuanto tiempo lleva el usuario registrado en el sistema
 </ol>
+<br><br>
+NOTA:<br>
+Es necesario añadir la librería JavaMail incluida en src/resources/Libraries/mail.jar
