@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import funcionalidad.ContraseniaNoValidaException;
+import funcionalidad.CorreoNoValidoException;
 import funcionalidad.EnvoltorioPokemons;
 import funcionalidad.ManejoUsuarios;
 import funcionalidad.Usuario;
@@ -221,6 +222,12 @@ public class Principal extends JFrame {
 		contentPane.add(botonAyuda);
 
 		JButton btnhaOlvidadoSu = new JButton("¿Ha olvidado su contraseña?");
+		btnhaOlvidadoSu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MandarCorreo mandarCorreo = new MandarCorreo();
+				mandarCorreo.setVisible(true);
+			}
+		});
 		btnhaOlvidadoSu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -292,7 +299,7 @@ public class Principal extends JFrame {
 				gestion.setVisible(true);
 			}
 
-		} catch (ElementoNoExisteException | UsuarioNoValidoException | ContraseniaNoValidaException e1) {
+		} catch (ElementoNoExisteException | UsuarioNoValidoException | ContraseniaNoValidaException | CorreoNoValidoException e1) {
 			JOptionPane.showMessageDialog(frame, "El usuario o la contraseña no son correctos", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 			fieldNombre.setText("");
@@ -309,4 +316,7 @@ public class Principal extends JFrame {
 		}
 
 	}
+
+	
+
 }

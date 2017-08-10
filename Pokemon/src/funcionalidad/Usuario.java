@@ -23,11 +23,16 @@ public class Usuario implements Serializable {
 	 * Alias del usuario
 	 */
 	private String alias;
-	
+
 	/**
 	 * Contraseña del usuario
 	 */
 	private String contrasenia;
+
+	/**
+	 * Correo del usuario
+	 */
+	private String correo;
 
 	/**
 	 * Lista de pokemons
@@ -43,15 +48,23 @@ public class Usuario implements Serializable {
 	 * Patrón para comprobar que el alias del usuario es correcto
 	 */
 	static final private Pattern patronUsuario = Pattern.compile("\\w{2,}[ ]?\\w{2,}");
-	
+
 	/**
 	 * Patrón para comprobar que el alias del usuario es correcto
 	 */
 	static final private Pattern patronContrasenia = Pattern.compile(".*{2,}");
 
-	public Usuario(String nombre, String contrasenia) throws UsuarioNoValidoException, ContraseniaNoValidaException {
+	/**
+	 * Patrón para comprobar que el correo del usuario es correcto
+	 */
+	static final private Pattern patronCorreo = Pattern
+			.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
+
+	public Usuario(String nombre, String correo, String contrasenia)
+			throws UsuarioNoValidoException, ContraseniaNoValidaException, CorreoNoValidoException {
 		setAlias(nombre);
 		setContrasenia(contrasenia);
+		setCorreo(correo);
 		setFechaRegistro(Calendar.getInstance());
 	}
 
@@ -64,20 +77,41 @@ public class Usuario implements Serializable {
 			throw new UsuarioNoValidoException("El usuario no es válido");
 		this.alias = alias;
 	}
-	
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) throws CorreoNoValidoException {
+		if (!correoValido(correo))
+			throw new CorreoNoValidoException("El correo no es válido");
+		this.correo = correo;
+	}
+
 	public String getContrasenia() {
 		return contrasenia;
 	}
 
 	public void setContrasenia(String contrasenia) throws ContraseniaNoValidaException {
-		if (!contraseniaValida(contrasenia)) 
+		if (!contraseniaValida(contrasenia))
 			throw new ContraseniaNoValidaException("La contraseña no es válida");
-		
+
 		this.contrasenia = contrasenia;
 	}
 
 	/**
+	 * Comprueba que el correo sea válido
+	 * 
+	 * @param correo2
+	 * @return
+	 */
+	private boolean correoValido(String correo2) {
+		return patronCorreo.matcher(correo2).matches();
+	}
+
+	/**
 	 * Comprueba que la contraseña sea válida
+	 * 
 	 * @param contrasenia2
 	 * @return
 	 */

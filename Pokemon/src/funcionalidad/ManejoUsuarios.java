@@ -35,10 +35,12 @@ public class ManejoUsuarios {
 	 * @return Datos del usuario.
 	 * @throws ElementoNoExisteException
 	 * @throws UsuarioNoValidoException
-	 * @throws ContraseniaNoValidaException 
+	 * @throws ContraseniaNoValidaException
+	 * @throws CorreoNoValidoException
 	 */
-	public static Usuario getUsuario(String nombre, String contrasenia) throws ElementoNoExisteException, UsuarioNoValidoException, ContraseniaNoValidaException {
-		return listaUsuarios.getElemento(new Usuario(nombre, contrasenia));
+	public static Usuario getUsuario(String nombre, String contrasenia)
+			throws ElementoNoExisteException, UsuarioNoValidoException, ContraseniaNoValidaException, CorreoNoValidoException {
+		return listaUsuarios.getElemento(new Usuario(nombre, "111@111.com", contrasenia));
 	}
 
 	/**
